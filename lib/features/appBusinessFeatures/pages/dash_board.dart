@@ -12,15 +12,7 @@ class DashBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu, color: Colors.white),
-        ),
-      ),
-      body: Padding(
+    return  Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
@@ -138,7 +130,7 @@ class DashBoardScreen extends StatelessWidget {
 
 
           ],
-        ),
+
       ),
     );
   }

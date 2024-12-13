@@ -36,13 +36,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   device_preview: ^1.2.0
-  file_picker: ^5.0.1  # Add the latest stable version of file_picker
   csv: ^5.0.0        # Ensure you're using a version compatible with your needs
   path_provider: ^2.0.11  # Ensure path_provider is updated to a recent stable version
   open_file: ^3.0.3      # Add the latest version for open_file
   fl_chart: ^0.69.2
   flutter_bloc: ^8.1.6
   flutter_plugin_android_lifecycle: ^2.0.7
+  curved_navigation_bar: ^1.0.6
 
 
 dev_dependencies:

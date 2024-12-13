@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/bottom_navigation.dart';
 
 import '../features/appBusinessFeatures/pages/dash_board.dart';
 
@@ -58,7 +59,7 @@ abstract class MobileOrTablet {
 class MobileView implements MobileOrTablet {
   @override
   Widget build(BuildContext context) {
-    return  DashBoardScreen();//Add mobile-specific widgets here
+    return  BottomNavigationScreen();//Add mobile-specific widgets here
   }
 }
 
