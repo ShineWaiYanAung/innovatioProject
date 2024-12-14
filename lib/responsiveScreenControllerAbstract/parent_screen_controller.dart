@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/bottom_navigation.dart';
 
-import '../features/appBusinessFeatures/pages/dash_board.dart';
+import '../features/appBusinessFeatures/pages/subpages/dash_board.dart';
 
 /// Abstract class defining the contract for platform-specific screens.
 abstract class ParentScreen {

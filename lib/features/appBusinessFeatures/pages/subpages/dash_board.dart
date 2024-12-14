@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/widgets/stock_chart.dart';
 
-import '../widgets/bar_chart.dart';
-import '../widgets/data_import_button.dart';
-import '../widgets/line_chart.dar.dart';
-import '../widgets/radio_top_product_sale.dart';
-import '../widgets/radio_total_sales.dart';
+import '../../widgets/bar_chart.dart';
+import '../../widgets/data_import_button.dart';
+import '../../widgets/line_chart.dar.dart';
+import '../../widgets/radio_top_product_sale.dart';
+import '../../widgets/radio_total_sales.dart';
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({super.key});

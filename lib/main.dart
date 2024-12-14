@@ -42,8 +42,9 @@ class MyApp extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2), // Use theme instance
-            titleMedium: TextStyle(color: theme.largeTextColor),
-            headlineLarge: TextStyle(color: theme.focusTextColor),
+            titleMedium: TextStyle(color: theme.largeTextColor,fontFamily: "InriaSerif",),
+            headlineLarge: TextStyle(color: theme.focusTextColor,fontFamily: "InriaSerif",),
+            labelMedium: TextStyle(color: theme.focusTextColor,fontFamily: "InriaSerif",),
             headlineSmall: TextStyle(color: theme.unSelectedTextColor),
           ),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
