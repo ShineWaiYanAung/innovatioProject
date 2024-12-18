@@ -12,7 +12,8 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int index = 0;  // Default to the first index (Dashboard)
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int index = 0; // Default to the first index (Dashboard)
 
   // Define the icons
   List<IconData> icons = [
@@ -24,14 +25,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   // Define the initial colors and sizes of the icons
   List<Color> iconColors = [
-    Colors.blue,   // Set the first icon to blue initially
+    Colors.blue, // Set the first icon to blue initially
     Colors.black,
     Colors.black,
     Colors.black,
   ];
 
   List<double> iconSizes = [
-    30.0,   // Set the first icon size larger
+    30.0, // Set the first icon size larger
     20.0,
     20.0,
     20.0,
@@ -47,19 +48,28 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       drawer: MenuDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-
+            if (_scaffoldKey.currentState != null &&
+                !_scaffoldKey.currentState!.isDrawerOpen) {
+              _scaffoldKey.currentState!
+                  .openDrawer(); // Open the drawer using the GlobalKey
+            }
           },
           icon: Icon(Icons.menu, color: Colors.white),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SubscriptionPlan(),),);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SubscriptionPlan(),
+                ),
+              );
             },
             icon: Icon(Icons.notifications, color: Colors.white),
           ),
@@ -70,7 +80,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         backgroundColor: Colors.transparent,
         items: List.generate(icons.length, (i) {
           return AnimatedContainer(
-            duration: Duration(milliseconds: 500), // Set duration for smooth animation
+            duration: Duration(
+                milliseconds: 500), // Set duration for smooth animation
             curve: Curves.easeInOut, // Smooth animation curve
             child: Icon(
               icons[i],

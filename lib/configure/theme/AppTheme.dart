@@ -78,7 +78,7 @@ class DarkTheme implements AppTheme {
   Color mediumTextColor = Colors.black45;
 
   @override
-  Color scaffoldBackGroundColor = Colors.black45;
+  Color scaffoldBackGroundColor = Colors.black;
 
   @override
   Color unSelectedTextColor = Colors.black45;

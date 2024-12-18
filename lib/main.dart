@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
             titleMedium: TextStyle(color: theme.largeTextColor,fontFamily: "InriaSerif",),
             headlineLarge: TextStyle(color: theme.focusTextColor,fontFamily: "InriaSerif",),
             labelMedium: TextStyle(color: theme.focusTextColor,fontFamily: "InriaSerif",),
+            titleSmall: TextStyle(color: theme.largeTextColor,fontFamily: "InriaSerif",),
             headlineSmall: TextStyle(color: theme.unSelectedTextColor),
           ),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
