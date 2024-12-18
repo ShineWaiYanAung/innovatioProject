@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/dash_board.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/menu.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subscroption_plan.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -46,6 +47,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MenuDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
