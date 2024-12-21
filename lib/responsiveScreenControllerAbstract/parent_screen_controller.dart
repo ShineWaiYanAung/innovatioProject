@@ -22,7 +22,7 @@ class AndroidScreen implements ParentScreen {
 class IosScreen implements ParentScreen {
   @override
   Widget build(BuildContext context) {
-    return Container(); // Add iOS-specific widgets here
+    return BottomNavigationScreen(); // Add iOS-specific widgets here
   }
 }
 
@@ -30,7 +30,7 @@ class IosScreen implements ParentScreen {
 class WindowScreen implements ParentScreen {
   @override
   Widget build(BuildContext context) {
-    return Container(); // Add Windows-specific widgets here
+    return BottomNavigationScreen(); // Add Windows-specific widgets here
   }
 }
 
@@ -67,7 +67,7 @@ class MobileView implements MobileOrTablet {
 class TabletView implements MobileOrTablet {
   @override
   Widget build(BuildContext context) {
-    return Container(); // Add tablet-specific widgets here
+    return BottomNavigationScreen();// Add tablet-specific widgets here
   }
 }
 
