@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/OnBoardingPage/intro_page1.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/Questionire/questionirepage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../responsiveScreenControllerAbstract/parent_screen_controller.dart';
@@ -59,9 +60,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ScreenFactory.getPlatformScreen(
-                                  Theme.of(context).platform)
-                              .build(context),
+                          builder: (context) => QuestionnairePage(),
                         ),
                       );
                     },
