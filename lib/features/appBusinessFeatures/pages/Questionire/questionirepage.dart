@@ -6,20 +6,31 @@ class QuestionnairePage extends StatefulWidget {
 }
 
 class _QuestionnairePageState extends State<QuestionnairePage> {
-  final List<String> questions = [
-    "What is your name?",
-    "How old are you?",
-    "Where are you from?",
-    "What is your favorite hobby?",
-    "What is your favorite food?",
-  ];
+  final TextEditingController question1 = TextEditingController();
+  final TextEditingController question2 = TextEditingController();
+  final TextEditingController question3 = TextEditingController();
+  final TextEditingController question4 = TextEditingController();
+  final TextEditingController question5 = TextEditingController();
 
-  int currentQuestionIndex = 0; // Track the current question
-  int totalQuestions = 5; // Total number of questions
+  // List to store the answers
+  List<String> answers = [];
+
+  // Track if a question has been answered
+  List<bool> isAnswered = [false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
-    double progress = (currentQuestionIndex + 1) / totalQuestions;
+    // Calculate progress (0.0 to 1.0) based on the number of answers
+    double progress = answers.length / 5.0;
+
+    // List of questions
+    final List<QuestionModelModel> questions = [
+      QuestionModelModel(question: "What is your name?", controller: question1),
+      QuestionModelModel(question: "What is your age?", controller: question2),
+      QuestionModelModel(question: "Where do you live?", controller: question3),
+      QuestionModelModel(question: "What is your profession?", controller: question4),
+      QuestionModelModel(question: "What is your hobby?", controller: question5),
+    ];
 
     return Scaffold(
       body: SafeArea(
@@ -41,30 +52,26 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
               ),
               // ListView.builder for the questionnaire
               Positioned(
-                top:
-                    100, // Adjust this value based on how much space you want from the top
+                top: 100, // Adjust this value based on how much space you want from the top
                 left: 0,
                 right: 0,
                 bottom: 0, // Allow it to take up the rest of the space
                 child: ListView.builder(
-                  itemCount:
-                      questions.length, // Use the actual number of questions
+                  itemCount: questions.length, // Use the actual number of questions
                   itemBuilder: (context, index) {
-                    return buildQuestionnaireCard(context, index);
+                    return buildQuestionnaireCard(context, index, questions);
                   },
                 ),
               ),
               // Progress indicator at the top
               Positioned(
-                top:
-                    60, // Adjust this so the progress bar sits below the "To Get Better Result" text
+                top: 60, // Adjust this so the progress bar sits below the "To Get Better Result" text
                 left: 0,
                 right: 0,
                 child: LinearProgressIndicator(
-                  color: Colors.white,
+                  color: Colors.blue,
                   backgroundColor: Colors.grey,
-
-                  value: progress,
+                  value: progress, // Pass progress value here
                   minHeight: 10,
                 ),
               ),
@@ -75,7 +82,10 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     );
   }
 
-  Widget buildQuestionnaireCard(BuildContext context, int index) {
+  // Method to build the questionnaire card
+  Widget buildQuestionnaireCard(BuildContext context, int index, List<QuestionModelModel> questions) {
+    final eachQuestion = questions[index];
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
@@ -85,38 +95,42 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-                color: Color(0xff1B1B1B), offset: Offset(0, 1), blurRadius: 1),
+              color: Color(0xff1B1B1B),
+              offset: Offset(0, 1),
+              blurRadius: 1,
+            ),
           ],
         ),
         child: Column(
           children: [
             Text(
-              "${index + 1}. ${questions[index]}", // Display question number and text
+              eachQuestion.question, // Display question text
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.white, // White text for questions
-                  ),
+                color: Colors.white, // White text for questions
+              ),
             ),
             SizedBox(height: 40),
             SizedBox(
               width: 300,
               child: TextField(
+                controller: eachQuestion.controller,
                 decoration: InputDecoration(
                   hintText: 'Fill Me',
                   hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.grey, // Hint text color
-                      ),
+                    color: Colors.grey, // Hint text color
+                  ),
                   filled: true,
-                  fillColor: Colors.white, // Background color when focused
+                  fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.grey, // Border color when not focused
+                      color: Colors.grey,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.blue, // Border color when focused
+                      color: Colors.blue,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(8.0),
@@ -126,28 +140,42 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
             ),
             SizedBox(height: 20),
             GestureDetector(
-              onTap: () {
-                if (currentQuestionIndex > 0) currentQuestionIndex--;
-
-
+              onTap: isAnswered[index]
+                  ? () {
+                // If the question is answered, allow editing the answer
+                setState(() {
+                  isAnswered[index] = false; // Set it to false so they can edit
+                });
+              }
+                  : () {
+                // If the question is not answered, submit the answer
+                if (eachQuestion.controller.text.isNotEmpty) {
+                  if (!isAnswered[index]) {
+                    answers.add(eachQuestion.controller.text);
+                    isAnswered[index] = true; // Mark the question as answered
+                    print("The Answer $index is ${eachQuestion.controller.text}");
+                  }
+                  setState(() {}); // Rebuild to update progress bar and UI
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: isAnswered[index] ? Colors.grey : Colors.white, // Change color when answered
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff1B1B1B),
-                        offset: Offset(0, 1),
-                        blurRadius: 1),
+                      color: Color(0xff1B1B1B),
+                      offset: Offset(0, 1),
+                      blurRadius: 1,
+                    ),
                   ],
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
-                  "Submit",
+                  isAnswered[index] ? "Edit" : "Submit", // Change text when answered
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.black,
-                      ),
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -158,46 +186,9 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   }
 }
 
-// Row(
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// if (currentQuestionIndex > 0)
-// ElevatedButton(
-// onPressed: () {
-// setState(() {
-// currentQuestionIndex--;
-// });
-// },
-// child: Text('Previous'),
-// ),
-// ElevatedButton(
-// onPressed: () {
-// setState(() {
-// if (currentQuestionIndex < totalQuestions - 1) {
-// currentQuestionIndex++;
-// } else {
-// // Submit the questionnaire
-// showDialog(
-// context: context,
-// builder: (context) => AlertDialog(
-// title: Text('All Questions Completed'),
-// content: Text('Thank you for completing the questionnaire!'),
-// actions: [
-// TextButton(
-// onPressed: () {
-// Navigator.of(context).pop();
-// },
-// child: Text('OK'),
-// ),
-// ],
-// ),
-// );
-// }
-// });
-// },
-// child: Text(currentQuestionIndex < totalQuestions - 1
-// ? 'Next'
-//     : 'Submit'),
-// ),
-// ],
-// ),
+class QuestionModelModel {
+  final String question;
+  final TextEditingController controller;
+
+  QuestionModelModel({required this.question, required this.controller});
+}
