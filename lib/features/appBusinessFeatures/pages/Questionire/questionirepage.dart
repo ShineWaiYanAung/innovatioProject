@@ -6,33 +6,87 @@ class QuestionnairePage extends StatefulWidget {
 }
 
 class _QuestionnairePageState extends State<QuestionnairePage> {
-  final TextEditingController question1 = TextEditingController();
-  final TextEditingController question2 = TextEditingController();
-  final TextEditingController question3 = TextEditingController();
-  final TextEditingController question4 = TextEditingController();
-  final TextEditingController question5 = TextEditingController();
-
-  // List to store the answers
+  // Map to store the selected answers for each question
+  Map<int, String> selectedAnswers = {};
   List<String> answers = [];
-
-  // Track if a question has been answered
-  List<bool> isAnswered = [false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
-    // Calculate progress (0.0 to 1.0) based on the number of answers
-    double progress = answers.length / 5.0;
+    double progress = selectedAnswers.length / 6.0;
 
     // List of questions
-    final List<QuestionModelModel> questions = [
-      QuestionModelModel(question: "What is your name?", controller: question1),
-      QuestionModelModel(question: "What is your age?", controller: question2),
-      QuestionModelModel(question: "Where do you live?", controller: question3),
-      QuestionModelModel(question: "What is your profession?", controller: question4),
-      QuestionModelModel(question: "What is your hobby?", controller: question5),
+    final List<QuestionModel> questions = [
+      QuestionModel(
+        question: "1.What industry does your business operate in?",
+        multipleQuestion: [
+          "Retail",
+          "Manufacturing",
+          "Wholesale",
+          "Service (e.g., hospitality, healthcare)",
+        ],
+      ),
+      QuestionModel(
+        question: "2.What is the size of your business?",
+        multipleQuestion: [
+          "Small (1-10 employees)",
+          "Medium (11-100 employees)",
+          "Large (101+ employees)",
+        ],
+      ),
+      QuestionModel(
+        question: "3.What geographic area do you serve?",
+        multipleQuestion: [
+          "Local (city or town)",
+          "Regional",
+          "National",
+          "International",
+          "Online (E-commerce)",
+        ],
+      ),
+      QuestionModel(
+        question: "4.What are the biggest challenges your business is currently facing? (Optional)",
+        multipleQuestion: [
+          "Sales and revenue forecasting",
+          "Real-time performance insights",
+          "Inventory management",
+          "Difficulty in making data-driven decisions",
+        ],
+      ),
+      QuestionModel(
+        question: "5.How do you primarily make business decisions today?",
+        multipleQuestion: [
+          "Data-driven insights",
+          "Experience and intuition",
+          "External consultants or advisors",
+          "We don’t currently have a formal decision-making process",
+        ],
+      ),
+      QuestionModel(
+        question: "6.What key features would you like from FAB?",
+        multipleQuestion: [
+          "Sales forecasting and trend analysis",
+          "AI-powered decision-making support",
+          "Business insights and recommendations",
+          "Inventory management predictions",
+        ],
+      ),
     ];
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {
+          // Populate the answers list from selectedAnswers
+          if (selectedAnswers.length <= 5) return;
+          answers = List.generate(
+            questions.length,
+            (index) => selectedAnswers[index] ?? "Not Answered",
+          );
+          print(answers); // Debugging: Print the answers list
+          // Add further actions if needed
+        },
+        child: Icon(Icons.check,color: Colors.black,), // Changed icon to a checkmark for submission
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -52,26 +106,27 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
               ),
               // ListView.builder for the questionnaire
               Positioned(
-                top: 100, // Adjust this value based on how much space you want from the top
+                top: 100,
                 left: 0,
                 right: 0,
-                bottom: 0, // Allow it to take up the rest of the space
+                bottom: 0,
                 child: ListView.builder(
-                  itemCount: questions.length, // Use the actual number of questions
+                  itemCount: questions.length,
                   itemBuilder: (context, index) {
-                    return buildQuestionnaireCard(context, index, questions);
+                    return buildQuestionnaireCard(
+                        context, index, questions, questions[index].multipleQuestion);
                   },
                 ),
               ),
               // Progress indicator at the top
               Positioned(
-                top: 60, // Adjust this so the progress bar sits below the "To Get Better Result" text
+                top: 60,
                 left: 0,
                 right: 0,
                 child: LinearProgressIndicator(
                   color: Colors.blue,
                   backgroundColor: Colors.grey,
-                  value: progress, // Pass progress value here
+                  value: progress,
                   minHeight: 10,
                 ),
               ),
@@ -83,9 +138,9 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   }
 
   // Method to build the questionnaire card
-  Widget buildQuestionnaireCard(BuildContext context, int index, List<QuestionModelModel> questions) {
+  Widget buildQuestionnaireCard(BuildContext context, int index,
+      List<QuestionModel> questions, List<String> answerChoices) {
     final eachQuestion = questions[index];
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
@@ -102,93 +157,47 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              eachQuestion.question, // Display question text
+              eachQuestion.question,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.white, // White text for questions
-              ),
+                    color: Colors.white,
+                  ),
             ),
-            SizedBox(height: 40),
-            SizedBox(
-              width: 300,
-              child: TextField(
-                controller: eachQuestion.controller,
-                decoration: InputDecoration(
-                  hintText: 'Fill Me',
-                  hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.grey, // Hint text color
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            GestureDetector(
-              onTap: isAnswered[index]
-                  ? () {
-                // If the question is answered, allow editing the answer
-                setState(() {
-                  isAnswered[index] = false; // Set it to false so they can edit
-                });
-              }
-                  : () {
-                // If the question is not answered, submit the answer
-                if (eachQuestion.controller.text.isNotEmpty) {
-                  if (!isAnswered[index]) {
-                    answers.add(eachQuestion.controller.text);
-                    isAnswered[index] = true; // Mark the question as answered
-                    print("The Answer $index is ${eachQuestion.controller.text}");
-                  }
-                  setState(() {}); // Rebuild to update progress bar and UI
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isAnswered[index] ? Colors.grey : Colors.white, // Change color when answered
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xff1B1B1B),
-                      offset: Offset(0, 1),
-                      blurRadius: 1,
-                    ),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text(
-                  isAnswered[index] ? "Edit" : "Submit", // Change text when answered
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
+            const SizedBox(height: 16),
+            ...answerChoices.map((choice) => _buildRadioOption(index, choice)),
           ],
         ),
       ),
     );
   }
+
+  // Method to build individual radio options
+  Widget _buildRadioOption(int questionIndex, String value) {
+    return RadioListTile<String>(
+      activeColor: Colors.blue,
+      title: Text(
+        value,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      value: value,
+      groupValue: selectedAnswers[questionIndex],
+      onChanged: (newValue) {
+        setState(() {
+          selectedAnswers[questionIndex] = newValue!;
+        });
+      },
+    );
+  }
 }
 
-class QuestionModelModel {
+class QuestionModel {
   final String question;
-  final TextEditingController controller;
-
-  QuestionModelModel({required this.question, required this.controller});
+  final List<String> multipleQuestion;
+  QuestionModel({
+    required this.question,
+    required this.multipleQuestion,
+  });
 }
