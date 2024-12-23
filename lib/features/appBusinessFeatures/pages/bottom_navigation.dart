@@ -43,7 +43,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   List<Widget> pages = [
     DashBoardScreen(),
-    DataFetchScreen (),
+    DataPostScreen(),
     CustomerSegmentation(),
     MarketAiInsight(),
   ];

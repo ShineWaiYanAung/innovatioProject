@@ -5,8 +5,9 @@ import 'package:innovation_proeject/features/appBusinessFeatures/pages/OnBoardin
 import 'package:innovation_proeject/responsiveScreenControllerAbstract/parent_screen_controller.dart';
 import 'configure/theme/AppTheme.dart';
 import 'package:device_preview/device_preview.dart';
-
 import 'features/appBusinessFeatures/pages/subpages/test.dart';
+import 'features/authentication/pages/mainScreen/Bloc/cubit.dart';
+import 'features/authentication/pages/mainScreen/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SalesCubit(),
-        )
+        ),
+        BlocProvider(create: (context)=>DataImportCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home:DataFetchScreen(),)
+        home:LoginView(),)
     );
   }
 }
