@@ -18,7 +18,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
         children: [
           // Header Container
           SizedBox(
-            height: 230,
+            height: 250,
             child: UserAccountsDrawerHeader(
               otherAccountsPictures: [
                 IconButton(

@@ -2,8 +2,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/customer_segementation.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/dash_board.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/market_ai_insight.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/menu.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subscroption_plan.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/test.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -41,9 +43,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   List<Widget> pages = [
     DashBoardScreen(),
-    Container(),
+    DataFetchScreen (),
     CustomerSegmentation(),
-    Container(),
+    MarketAiInsight(),
   ];
 
   @override

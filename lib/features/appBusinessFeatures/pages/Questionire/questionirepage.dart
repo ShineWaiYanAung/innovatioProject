@@ -85,7 +85,13 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           );
           print(answers); // Debugging: Print the answers list
           // Add further actions if needed
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),
+            ),
+          );
         },
+
         child: Icon(Icons.check,color: Colors.black,), // Changed icon to a checkmark for submission
       ),
       body: SafeArea(
@@ -188,11 +194,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       onChanged: (newValue) {
         setState(() {
           selectedAnswers[questionIndex] = newValue!;
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform),
-            ),
-          );
+
         });
       },
     );
