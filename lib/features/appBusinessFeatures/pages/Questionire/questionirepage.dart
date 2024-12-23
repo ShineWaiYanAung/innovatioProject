@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innovation_proeject/responsiveScreenControllerAbstract/parent_screen_controller.dart';
 
 class QuestionnairePage extends StatefulWidget {
   @override
@@ -187,6 +188,11 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
       onChanged: (newValue) {
         setState(() {
           selectedAnswers[questionIndex] = newValue!;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform),
+            ),
+          );
         });
       },
     );
