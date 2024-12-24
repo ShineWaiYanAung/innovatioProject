@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class DataImportButton extends StatelessWidget {
   final String name;
+  final VoidCallback function;
   final Color textColor;
   final List<Color> gradient;
   final Icon icon;
   const DataImportButton({
     super.key,
+    required this.function,
     required this.name,
     required this.textColor,
     required this.icon,
@@ -16,7 +18,7 @@ class DataImportButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: function,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
         decoration: BoxDecoration(
