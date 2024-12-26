@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +22,18 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  List<List<dynamic>> _data = [];
-
   List<Map<String, dynamic>>? dataSendingJSon;
   String? companyName;
   String? filePath;
   bool Alreadyadded = false;
+
+  List<List<dynamic>> _data = [];
+  List<String> imageAds = [
+    "adsImages/kfcads.jpg",
+    "adsImages/savsumg.jpg",
+    "adsImages/sneaker.jpg"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -124,7 +130,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 onPressed: () async {
                                                   var result =
                                                       await _pickFile(); // If _pickFile() returns void, this causes the error
-                                                  Alreadyadded =true;
+                                                  Alreadyadded = true;
                                                   print(Alreadyadded);
                                                   setState(
                                                       () {}); // Updates the StatefulBuilder
@@ -158,7 +164,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                       dataSendingJSon?.clear();
                                                       Navigator.of(context)
                                                           .pop();
-
                                                     } else {
                                                       print(
                                                           "No data available to send.");
@@ -222,6 +227,34 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ),
           SizedBox(
             height: 10,
+          ),
+          CarouselSlider.builder(
+            itemCount: imageAds.length,
+            itemBuilder: (context, index, realIndex) {
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        imageAds[index],
+                      ),
+                      fit: BoxFit.fill),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black87,
+                      offset: Offset(0, 1),
+                      blurRadius: 10,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              );
+            },
+            options: CarouselOptions(
+                autoPlay: true,
+                autoPlayAnimationDuration: Duration(seconds: 2),
+                height: 150),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/customer_segementaiton_detail.dart';
 
 class CustomerSegmentation extends StatefulWidget {
   const CustomerSegmentation({super.key});
@@ -20,7 +21,8 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          Text("Customer Segmentation", style: Theme.of(context).textTheme.titleLarge),
+          Text("Customer Segmentation",
+              style: Theme.of(context).textTheme.titleLarge),
           SizedBox(height: 10),
           Row(
             children: [
@@ -36,21 +38,24 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           title: '${seasonalBuyer.toInt()}%',
                           color: Colors.blue,
                           radius: 50,
-                          titleStyle: TextStyle(color: Colors.white, fontSize: 16),
+                          titleStyle:
+                              TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         PieChartSectionData(
                           value: occasionalBuyer,
                           title: '${occasionalBuyer.toInt()}%',
                           color: Colors.green,
                           radius: 50,
-                          titleStyle: TextStyle(color: Colors.white, fontSize: 16),
+                          titleStyle:
+                              TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         PieChartSectionData(
                           value: loyalBuyer,
                           title: '${loyalBuyer.toInt()}%',
                           color: Colors.orange,
                           radius: 50,
-                          titleStyle: TextStyle(color: Colors.white, fontSize: 16),
+                          titleStyle:
+                              TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ],
                       borderData: FlBorderData(show: false),
@@ -77,7 +82,10 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                         color: Colors.blue,
                       ),
                       SizedBox(width: 8),
-                      Text('Seasonal Buyer',style: Theme.of(context).textTheme.titleMedium,),
+                      Text(
+                        'Seasonal Buyer',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -90,7 +98,10 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                         color: Colors.green,
                       ),
                       SizedBox(width: 8),
-                      Text('Occasional Buyer',style: Theme.of(context).textTheme.titleMedium,),
+                      Text(
+                        'Occasional Buyer',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -103,17 +114,37 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                         color: Colors.orange,
                       ),
                       SizedBox(width: 8),
-                      Text('Loyal Buyer',style: Theme.of(context).textTheme.titleMedium,),
+                      Text(
+                        'Loyal Buyer',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CustomerSegmentaitonDetail(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Text(
+                        "Look Detail",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.black),
+                      ),
                     ),
-                    child: Text("Look Detail"),
                   )
                 ],
               ),
