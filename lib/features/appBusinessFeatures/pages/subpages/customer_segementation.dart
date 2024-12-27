@@ -15,6 +15,12 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
   double occasionalBuyer = 40;
   double loyalBuyer = 30;
 
+  double kPayPercentage = 10;
+  double AyePercentage = 30;
+  double WavePercentage = 10;
+  double CbPercentage = 20;
+  double cashPercentge = 30;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,6 +47,7 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           titleStyle:
                               TextStyle(color: Colors.white, fontSize: 16),
                         ),
+
                         PieChartSectionData(
                           value: occasionalBuyer,
                           title: '${occasionalBuyer.toInt()}%',
@@ -127,7 +134,8 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const CustomerSegmentaitonDetail(),
+                          builder: (context) =>
+                              const CustomerSegmentaitonDetail(),
                         ),
                       );
                     },
@@ -150,8 +158,115 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
               ),
             ],
           ),
+          Text("Payment Segmentation",
+              style: Theme.of(context).textTheme.titleLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Wrap PieChart with Flexible widget to allow it to take only available space
+              Flexible(
+                child: SizedBox(
+                  height: 250, // Define a fixed height for the pie chart
+                  child: PieChart(
+
+                    PieChartData(
+                      sections: [
+                        PieChartSectionData(
+                          value: kPayPercentage,
+                          title: '${kPayPercentage.toInt()}%',
+                          color: Colors.blue,
+                          radius: 50,
+                          titleStyle:
+                          TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        PieChartSectionData(
+                          value: cashPercentge,
+                          title: '${cashPercentge.toInt()}%',
+                          color: Colors.white,
+                          radius: 50,
+                          titleStyle:
+                              TextStyle(color:Colors.black, fontSize: 16),
+                        ),
+                        PieChartSectionData(
+                          value: CbPercentage,
+                          title: '${CbPercentage.toInt()}%',
+                          color: Colors.green,
+                          radius: 50,
+                          titleStyle:
+                          TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        PieChartSectionData(
+                          value: AyePercentage,
+                          title: '${AyePercentage.toInt()}%',
+                          color: Colors.red,
+                          radius: 50,
+                          titleStyle:
+                              TextStyle(color:Colors.black, fontSize: 16),
+                        ),
+                        PieChartSectionData(
+                          value: WavePercentage,
+                          title: '${WavePercentage.toInt()}%',
+                          color: Colors.orange,
+                          radius: 50,
+                          titleStyle:
+                              TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                      ],
+                      borderData: FlBorderData(show: false),
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 40,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Add some space between pie chart and legend
+              SizedBox(width: 20),
+
+              // Legend Section
+              SizedBox
+                (
+                width: 130,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildPayMentLegend(context, 'Kpay', Colors.blue),
+                    SizedBox(height: 8),
+                    // Legend for Occasional Buyer
+                    buildPayMentLegend(context, 'CBPay', Colors.green),
+                    SizedBox(height: 8),
+                    // Legend for Loyal Buyer
+                    buildPayMentLegend(context, 'Wave', Colors.orange),
+                    SizedBox(height: 8),
+                    // Legend for Loyal Buyer
+                    buildPayMentLegend(context, 'Ayeyar', Colors.red),
+                    SizedBox(height: 8),
+                    // Legend for Loyal Buyer
+                    buildPayMentLegend(context, 'Cash', Colors.white),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
+    );
+  }
+
+  Row buildPayMentLegend(BuildContext context, String title, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 20,
+          height: 20,
+          color: color,
+        ),
+        SizedBox(width: 8),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      ],
     );
   }
 }
