@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innovation_proeject/features/authentication/pages/mainScreen/login.dart';
 import 'package:innovation_proeject/responsiveScreenControllerAbstract/parent_screen_controller.dart';
 
 class QuestionnairePage extends StatefulWidget {
@@ -87,7 +88,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           // Add further actions if needed
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),
+              builder: (context) => LoginView(),
             ),
           );
         },

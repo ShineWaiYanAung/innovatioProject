@@ -28,26 +28,21 @@ class _LoginViewState extends State<LoginView> {
     final username = _usernameController.text;
     final password = _passwordController.text;
     final companyName = _companyNameController.text;
+
     if (username == 'ShineWai' && password == "123") {
       final myKeyToProvider = context.read<DataImportCubit>();
       myKeyToProvider.updateCompanyName(companyName);
+
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) =>
-              ScreenFactory.getPlatformScreen(Theme.of(context).platform)
-                  .build(context),
+          builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Your Password Wasn't Correct"),
-        ),
+        SnackBar(content: Text("Your Password Wasn't Correct")),
       );
     }
-    print('Username: $username');
-    print('Password: $password');
-    print('Company Name: $companyName');
   }
 
   @override
@@ -57,111 +52,73 @@ class _LoginViewState extends State<LoginView> {
         color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ListView(
+          child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 300,
-                      child: Lottie.asset("onBoardingScreen/login.json")),
-                  SizedBox(height: 10),
-                  Text(
-                    "Please login to your account",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  )
-                ],
-              ),
-              SizedBox(height: 40),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  prefixIconColor: Colors.white,
-                  labelText: 'Username',
-                  labelStyle: Theme.of(context).textTheme.titleMedium,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.lightBlue),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  prefixIconColor: Colors.white,
-                  labelText: 'Password',
-                  labelStyle: Theme.of(context).textTheme.titleMedium,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.lightBlue),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _companyNameController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.business),
-                  prefixIconColor: Colors.white,
-                  labelText: 'Company Name',
-                  labelStyle: Theme.of(context).textTheme.titleMedium,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.lightBlue),
-                      borderRadius: BorderRadius.circular(12)),
-                  focusColor: Colors.white,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120.0),
-                child: GestureDetector(
-                  onTap: _onLoginButtonPressed,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blue.shade200,
-                          offset: Offset(0, 4),
-                          blurRadius: 10,
+              Expanded(
+                child: ListView(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 300,
+                          child: Lottie.asset("onBoardingScreen/login.json"),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Please login to your account",
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
                     ),
-                    child: Text('Login',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: Colors.black)),
-                  ),
+                    SizedBox(height: 40),
+                    _buildTextField(
+                      controller: _usernameController,
+                      label: 'Username',
+                      icon: Icons.person,
+                    ),
+                    SizedBox(height: 16),
+                    _buildTextField(
+                      controller: _passwordController,
+                      label: 'Password',
+                      icon: Icons.lock,
+                      obscureText: true,
+                    ),
+                    SizedBox(height: 16),
+                    _buildTextField(
+                      controller: _companyNameController,
+                      label: 'Company Name',
+                      icon: Icons.business,
+                    ),
+                    SizedBox(height: 16),
+                    IndustryDescriptionPopup(),
+                    SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                      child: GestureDetector(
+                        onTap: _onLoginButtonPressed,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blue.shade200,
+                                offset: Offset(0, 4),
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            'Login',
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -170,4 +127,93 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon),
+        prefixIconColor: Colors.white,
+        labelText: label,
+        labelStyle: Theme.of(context).textTheme.titleMedium,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.lightBlue),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      style: TextStyle(color: Colors.white),
+    );
+  }
 }
+
+class IndustryDescriptionPopup extends StatefulWidget {
+  @override
+  _IndustryDescriptionPopupState createState() =>
+      _IndustryDescriptionPopupState();
+}
+
+class _IndustryDescriptionPopupState extends State<IndustryDescriptionPopup> {
+  String _selectedIndustry = "Choose Industry";
+
+  final Map<String, String> _industries = {
+    'Technology':
+    'The technology industry focuses on innovations in computing, electronics, and software development.',
+    'Healthcare':
+    'The healthcare industry involves providing medical services, manufacturing equipment, and developing pharmaceuticals.',
+    'Finance':
+    'The finance industry manages money, including banking, investments, and insurance.',
+    'Education':
+    'The education industry involves institutions and services that deliver learning and training opportunities.',
+    'Retail':
+    'The retail industry focuses on selling consumer goods and services to customers directly.',
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: PopupMenuButton<String>(
+        color: Colors.black,
+        onSelected: (value) {
+          setState(() {
+            _selectedIndustry = value;
+          });
+        },
+        itemBuilder: (BuildContext context) {
+          return _industries.keys.map((String industry) {
+            return PopupMenuItem<String>(
+              value: industry,
+              child: Text(
+                industry,
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          }).toList();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.white),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+          child: Text(
+            _selectedIndustry,
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

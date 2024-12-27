@@ -15,8 +15,8 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
   double occasionalBuyer = 40;
   double loyalBuyer = 30;
 
-  double kPayPercentage = 10;
-  double AyePercentage = 30;
+  double kPayPercentage = 30;
+
   double WavePercentage = 10;
   double CbPercentage = 20;
   double cashPercentge = 30;
@@ -47,7 +47,6 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           titleStyle:
                               TextStyle(color: Colors.white, fontSize: 16),
                         ),
-
                         PieChartSectionData(
                           value: occasionalBuyer,
                           title: '${occasionalBuyer.toInt()}%',
@@ -158,6 +157,10 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
               ),
             ],
           ),
+          Divider(
+            color: Colors.grey,
+            thickness: 3,
+          ),
           Text("Payment Segmentation",
               style: Theme.of(context).textTheme.titleLarge),
           Row(
@@ -168,7 +171,6 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                 child: SizedBox(
                   height: 250, // Define a fixed height for the pie chart
                   child: PieChart(
-
                     PieChartData(
                       sections: [
                         PieChartSectionData(
@@ -177,7 +179,7 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           color: Colors.blue,
                           radius: 50,
                           titleStyle:
-                          TextStyle(color: Colors.black, fontSize: 16),
+                              TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         PieChartSectionData(
                           value: cashPercentge,
@@ -185,7 +187,7 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           color: Colors.white,
                           radius: 50,
                           titleStyle:
-                              TextStyle(color:Colors.black, fontSize: 16),
+                              TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         PieChartSectionData(
                           value: CbPercentage,
@@ -193,15 +195,7 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                           color: Colors.green,
                           radius: 50,
                           titleStyle:
-                          TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        PieChartSectionData(
-                          value: AyePercentage,
-                          title: '${AyePercentage.toInt()}%',
-                          color: Colors.red,
-                          radius: 50,
-                          titleStyle:
-                              TextStyle(color:Colors.black, fontSize: 16),
+                              TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         PieChartSectionData(
                           value: WavePercentage,
@@ -224,10 +218,10 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
               SizedBox(width: 20),
 
               // Legend Section
-              SizedBox
-                (
-                width: 130,
+              SizedBox(
+                width: 150,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildPayMentLegend(context, 'Kpay', Colors.blue),
@@ -238,11 +232,33 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                     // Legend for Loyal Buyer
                     buildPayMentLegend(context, 'Wave', Colors.orange),
                     SizedBox(height: 8),
-                    // Legend for Loyal Buyer
-                    buildPayMentLegend(context, 'Ayeyar', Colors.red),
-                    SizedBox(height: 8),
-                    // Legend for Loyal Buyer
+
                     buildPayMentLegend(context, 'Cash', Colors.white),
+                    SizedBox(height: 8),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const CustomerSegmentaitonDetail(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Text(
+                          "Look Detail",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.black),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
