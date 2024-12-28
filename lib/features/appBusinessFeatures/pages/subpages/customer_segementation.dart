@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/customer_segementaiton_detail.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/incomeMoney_segementation.dart';
 
 class CustomerSegmentation extends StatefulWidget {
   const CustomerSegmentation({super.key});
@@ -240,7 +241,7 @@ class _CustomerSegmentationState extends State<CustomerSegmentation> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                const CustomerSegmentaitonDetail(),
+                                const IncomeMoneySegementation(),
                           ),
                         );
                       },

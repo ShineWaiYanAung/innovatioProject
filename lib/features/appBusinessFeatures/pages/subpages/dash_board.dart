@@ -5,11 +5,13 @@ import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/customer_segementaiton_detail.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/widgets/stock_chart.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../authentication/pages/mainScreen/Bloc/cubit.dart';
 import '../../widgets/bar_chart.dart';
 import '../../widgets/data_import_button.dart';
+import '../../widgets/futuresalefoecating.dart';
 import '../../widgets/line_chart.dar.dart';
 import '../../widgets/radio_top_product_sale.dart';
 import '../../widgets/radio_total_sales.dart';
@@ -217,6 +219,65 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 icon: Icon((Icons.share)),
               ),
             ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Divider(
+            color: Colors.grey,
+            thickness: 3,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+
+
+
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Sale Forecasting",
+            style:Theme.of(context).textTheme.titleLarge,
+          ),
+
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            width: 300,
+            height: 200, // Add a specific height
+            child: FutureSaleForecastingOverview(),
+          ),
+          Center(
+            child: SizedBox(
+              width: 130,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const CustomerSegmentaitonDetail(),
+                    ),
+                  );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding:
+                  EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Text(
+                    "Look Detail",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.black,fontSize: 15,)
+                  ),
+                ),
+              ),
+            ),
           ),
           SizedBox(
             height: 10,

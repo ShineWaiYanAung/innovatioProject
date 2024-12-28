@@ -156,7 +156,6 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
-
 class IndustryDescriptionPopup extends StatefulWidget {
   @override
   _IndustryDescriptionPopupState createState() =>
@@ -164,20 +163,15 @@ class IndustryDescriptionPopup extends StatefulWidget {
 }
 
 class _IndustryDescriptionPopupState extends State<IndustryDescriptionPopup> {
-  String _selectedIndustry = "Choose Industry";
+  String _selectedIndustry = "Choose Business Type";
 
-  final Map<String, String> _industries = {
-    'Technology':
-    'The technology industry focuses on innovations in computing, electronics, and software development.',
-    'Healthcare':
-    'The healthcare industry involves providing medical services, manufacturing equipment, and developing pharmaceuticals.',
-    'Finance':
-    'The finance industry manages money, including banking, investments, and insurance.',
-    'Education':
-    'The education industry involves institutions and services that deliver learning and training opportunities.',
-    'Retail':
-    'The retail industry focuses on selling consumer goods and services to customers directly.',
-  };
+  final List<String> _businessTypes = [
+    'Convenience Store',
+    'Clothing or Fashion Shop',
+    'Food & Beverage',
+    'Cafeteria',
+    'Restaurant',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -190,11 +184,11 @@ class _IndustryDescriptionPopupState extends State<IndustryDescriptionPopup> {
           });
         },
         itemBuilder: (BuildContext context) {
-          return _industries.keys.map((String industry) {
+          return _businessTypes.map((String businessType) {
             return PopupMenuItem<String>(
-              value: industry,
+              value: businessType,
               child: Text(
-                industry,
+                businessType,
                 style: TextStyle(color: Colors.white),
               ),
             );
