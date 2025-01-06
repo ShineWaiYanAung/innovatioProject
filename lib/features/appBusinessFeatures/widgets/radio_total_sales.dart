@@ -28,9 +28,9 @@ class _RadioTotalSalesState extends State<RadioTotalSales> {
             "Profits",
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          buildRadio(0, options, "Annual", context),
-          buildRadio(1, options, "Monthly", context),
-          buildRadio(2, options, "Daily", context),
+          buildRadio(0, options, "Annual", context,"60"),
+          buildRadio(1, options, "Monthly", context,"10"),
+          buildRadio(2, options, "Daily", context,"30"),
         ],
       ),
     );
@@ -40,7 +40,7 @@ class _RadioTotalSalesState extends State<RadioTotalSales> {
     int optionsValue,
     List<String> options,
     String currentOptionsName,
-    BuildContext context,
+    BuildContext context,String profit
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +70,7 @@ class _RadioTotalSalesState extends State<RadioTotalSales> {
           ],
         ),
         Text(
-          "60%",
+          "$profit %",
           style: Theme.of(context)
               .textTheme
               .titleMedium!

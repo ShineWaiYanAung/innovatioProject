@@ -21,7 +21,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   // Define the icons
   List<IconData> icons = [
     Icons.dashboard,
-    Icons.shop_two_rounded,
     Icons.person,
     Icons.analytics_outlined,
   ];
@@ -30,20 +29,19 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Color> iconColors = [
     Colors.blue, // Set the first icon to blue initially
     Colors.black,
-    Colors.black,
+
     Colors.black,
   ];
 
   List<double> iconSizes = [
     30.0, // Set the first icon size larger
     20.0,
-    20.0,
+
     20.0,
   ];
 
   List<Widget> pages = [
     DashBoardScreen(),
-    DataPostScreen(),
     CustomerSegmentation(),
     MarketAiInsight(),
   ];

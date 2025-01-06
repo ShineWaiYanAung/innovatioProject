@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/product_detail.dart';
 
 import '../../widgets/bar_chart.dart';
 import '../../widgets/data_import_button.dart';
@@ -62,21 +63,23 @@ class _MarketAiInsightState extends State<MarketAiInsight> {
           SizedBox(
             child: Center(
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetail(),));
+                    },
                     child: Text(
                       "Daily Most Popular is Black Shirt",
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
-                          ?.copyWith(color: Colors.white),
+                          ?.copyWith(color: Colors.white,fontSize:13),
                     ))),
           ),
           SizedBox(
             height: 10,
           ),
 
-          RadioTopProductSale(),
-          SizedBox(height: 20,),
+          // RadioTopProductSale(),
+          // SizedBox(height: 20,),
           Divider(
             color: Colors.grey,
             thickness: 3,
@@ -84,11 +87,11 @@ class _MarketAiInsightState extends State<MarketAiInsight> {
           SizedBox(
             height: 10,
           ),
-          Text("Sale Alert", style: Theme.of(context).textTheme.titleLarge),
-          SizedBox(
-              height: 200, // Set an appropriate height
-              child:  StockBarChart()
-          ),
+          // Text("Sale Alert", style: Theme.of(context).textTheme.titleLarge),
+          // SizedBox(
+          //     height: 200, // Set an appropriate height
+          //     child:  StockBarChart()
+          // ),
 
 
 

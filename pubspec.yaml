@@ -79,6 +79,7 @@ flutter:
     - onBoardingScreen/page3.json
     - onBoardingScreen/page2.json
     - onBoardingScreen/login.json
+    - onBoardingScreen/watch.jpg
     - adsImages/kfcads.jpg
     - adsImages/savsumg.jpg
     - adsImages/sneaker.jpg
