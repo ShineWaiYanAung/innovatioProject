@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/Functions/Cubit/cubit_data_state_mangaement.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/OnBoardingPage/onBoardingScreen.dart';
-import 'package:innovation_proeject/responsiveScreenControllerAbstract/parent_screen_controller.dart';
 import 'configure/theme/AppTheme.dart';
 import 'package:device_preview/device_preview.dart';
-import 'features/appBusinessFeatures/pages/subpages/test.dart';
 import 'features/authentication/pages/mainScreen/Bloc/cubit.dart';
 import 'features/authentication/pages/mainScreen/login.dart';
 
@@ -56,7 +54,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),)
+        home:  OnBoardingScreen(),)
+          //)
     );
   }
 }

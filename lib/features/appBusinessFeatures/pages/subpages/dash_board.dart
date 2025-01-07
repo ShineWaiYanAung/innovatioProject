@@ -44,185 +44,48 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         children: [
           BlocBuilder<DataImportCubit, String?>(
             builder: (context, companyNameData) {
-              if (companyName == null) {
+              companyName = companyNameData;
+              if (companyNameData == null) {
                 return Text(
                   "Welcome, CEO",
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 24),
                 );
               } else {
                 // Display company name if it's available
                 return Text(
                   "Welcome, CEO of $companyName",
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 20),
                 );
               }
             },
           ),
-
-          SizedBox(
-            height: 10,
-          ),
-
-          ///FontSize need to place Adjustment
-          Text(
-            "Review Your Data",
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
-          ),
           SizedBox(
             height: 20,
           ),
-
-          ///Contact Your ItemCSV Data Import
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BlocBuilder<DataImportCubit, String?>(
-                builder: (BuildContext context, companyNameMain) {
-                  return DataImportButton(
-                    function: Alreadyadded
-                        ? () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.black12,
-                                content: Text(
-                                  "Your Data is Already Added Plz Wait",
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                            );
-                          }
-                        : () {
-                            setState(() {
-                              companyName = companyNameMain;
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return StatefulBuilder(
-                                  builder: (context, setState) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.white,
-                                      title: Text(
-                                        "Your CSV Data Uploading..",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(color: Colors.black),
-                                      ),
-                                      content: _data.isNotEmpty
-                                          ? Text(
-                                              "Your Data is here",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Colors.green),
-                                            )
-                                          : Text(
-                                              "Data haven't uploaded",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(color: Colors.red),
-                                            ),
-                                      actions: [
-                                        _data.isEmpty
-                                            ? TextButton(
-                                                onPressed: () async {
-                                                  var result =
-                                                      await _pickFile(); // If _pickFile() returns void, this causes the error
-                                                  Alreadyadded = true;
-                                                  print(Alreadyadded);
-                                                  setState(
-                                                      () {}); // Updates the StatefulBuilder
-                                                },
-                                                child: Text(
-                                                  "Upload",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleSmall
-                                                      ?.copyWith(
-                                                          color: Colors.black),
-                                                ),
-                                              )
-                                            : TextButton(
-                                                onPressed: () async {
-                                                  convertCsvToJson(_data);
-                                                  final dataSendingCubitkey =
-                                                      context.read<
-                                                          DataImportCubit>();
-                                                  // Ensure companyName is not null before sending to server
-                                                  if (companyName != null &&
-                                                      companyName!.isNotEmpty) {
-                                                    if (dataSendingJSon !=
-                                                        null) {
-                                                      dataSendingCubitkey
-                                                          .sendingToTheServer(
-                                                              context,
-                                                              companyName!,
-                                                              dataSendingJSon!);
-                                                      _data.clear();
-                                                      dataSendingJSon?.clear();
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    } else {
-                                                      print(
-                                                          "No data available to send.");
-                                                    }
-                                                  } else {
-                                                    print(
-                                                        "Company name is missing.");
-                                                  }
-                                                  setState(() {});
-                                                },
-                                                child: Text(
-                                                  "Start",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleSmall
-                                                      ?.copyWith(
-                                                          color: Colors.black),
-                                                ),
-                                              ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            "Close",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall
-                                                ?.copyWith(color: Colors.black),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                          },
-                    name: 'Import',
-                    textColor: Colors.black,
-                    gradient: [Colors.white, Colors.white],
-                    icon: Icon(Icons.download),
-                  );
-                },
-              ),
-              DataImportButton(
-                function: () {},
-                name: 'Connect',
-                textColor: Colors.white,
-                gradient: [Color(0xff81BCF0), Color(0xff497ADD)],
-                icon: Icon((Icons.share)),
-              ),
-            ],
+          Container(
+            width: 50,
+            margin: EdgeInsets.only(right: 250),
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(20)),
+            child: Text("Save",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.white,
+                      fontSize: 15,
+                    )),
           ),
           SizedBox(
             height: 10,
           ),
+
           Divider(
             color: Colors.grey,
             thickness: 3,
@@ -230,64 +93,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           SizedBox(
             height: 10,
           ),
-
-
-
+          ///FontSize need to place Adjustment
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Text(
-            "Sale Forecasting",
-            style:Theme.of(context).textTheme.titleLarge,
-          ),
-
-          SizedBox(
-            height: 10,
+            "Trending Market For You",
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(
-            width: 300,
-            height: 200, // Add a specific height
-            child: FutureSaleForecastingOverview(),
-          ),
-          Center(
-            child: SizedBox(
-              width: 130,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                      const CustomerSegmentaitonDetail(),
-                    ),
-                  );
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  padding:
-                  EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Text(
-                    "Look Detail",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.black,fontSize: 15,)
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            color: Colors.grey,
-            thickness: 3,
-          ),
-          SizedBox(
-            height: 10,
+            height: 20,
           ),
           CarouselSlider.builder(
             itemCount: imageAds.length,
@@ -316,6 +131,67 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 autoPlay: true,
                 autoPlayAnimationDuration: Duration(seconds: 2),
                 height: 150),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+
+          Divider(
+            color: Colors.grey,
+            thickness: 3,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+
+          Text(
+            "Sale Forecasting",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            width: 300,
+            height: 200, // Add a specific height
+            child: FutureSaleForecastingOverview(),
+          ),
+          Center(
+            child: SizedBox(
+              width: 130,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CustomerSegmentaitonDetail(),
+                    ),
+                  );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Text("Look Detail",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.black,
+                            fontSize: 15,
+                          )),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Divider(
+            color: Colors.grey,
+            thickness: 3,
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),

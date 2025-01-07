@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/ads_video_page.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/widgets/data_import_button.dart';
 import 'package:innovation_proeject/responsiveScreenControllerAbstract/parent_screen_controller.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../appBusinessFeatures/pages/subpages/subsubPage/before_data_import.dart';
 import 'Bloc/cubit.dart';
 
 class LoginView extends StatefulWidget {
@@ -15,6 +17,15 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _companyNameController = TextEditingController();
+  String _selectedIndustry = "Choose Business Type";
+
+  final List<String> _businessTypes = [
+    'Convenience Store',
+    'Clothing or Fashion Shop',
+    'Food & Beverage',
+    'Cafeteria',
+    'Restaurant',
+  ];
 
   @override
   void dispose() {
@@ -29,18 +40,21 @@ class _LoginViewState extends State<LoginView> {
     final password = _passwordController.text;
     final companyName = _companyNameController.text;
 
-    if (username == 'ShineWai' && password == "123") {
+    if (username == 'ShineWai' && password == "123" && _selectedIndustry !="Choose Business Type" && _companyNameController.text.isNotEmpty) {
       final myKeyToProvider = context.read<DataImportCubit>();
       myKeyToProvider.updateCompanyName(companyName);
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),
+          builder: (context) => DataImportPage(),
         ),
       );
-    } else {
+    }
+
+
+    else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Your Password Wasn't Correct")),
+        SnackBar(content: Text("Your Password Wasn't Correct Or You missed Something to supply")),
       );
     }
   }
@@ -91,7 +105,39 @@ class _LoginViewState extends State<LoginView> {
                       icon: Icons.business,
                     ),
                     SizedBox(height: 16),
-                    IndustryDescriptionPopup(),
+                  Center(
+                    child: PopupMenuButton<String>(
+                      color: Colors.black,
+                      onSelected: (value) {
+                        setState(() {
+                          _selectedIndustry = value;
+                        });
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return _businessTypes.map((String businessType) {
+                          return PopupMenuItem<String>(
+                            value: businessType,
+                            child: Text(
+                              businessType,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }).toList();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        child: Text(
+                          _selectedIndustry,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
                     SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 120.0),
@@ -156,58 +202,5 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
-class IndustryDescriptionPopup extends StatefulWidget {
-  @override
-  _IndustryDescriptionPopupState createState() =>
-      _IndustryDescriptionPopupState();
-}
 
-class _IndustryDescriptionPopupState extends State<IndustryDescriptionPopup> {
-  String _selectedIndustry = "Choose Business Type";
-
-  final List<String> _businessTypes = [
-    'Convenience Store',
-    'Clothing or Fashion Shop',
-    'Food & Beverage',
-    'Cafeteria',
-    'Restaurant',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: PopupMenuButton<String>(
-        color: Colors.black,
-        onSelected: (value) {
-          setState(() {
-            _selectedIndustry = value;
-          });
-        },
-        itemBuilder: (BuildContext context) {
-          return _businessTypes.map((String businessType) {
-            return PopupMenuItem<String>(
-              value: businessType,
-              child: Text(
-                businessType,
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          }).toList();
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white),
-          ),
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          child: Text(
-            _selectedIndustry,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  }
-}
 

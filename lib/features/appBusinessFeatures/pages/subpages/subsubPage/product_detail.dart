@@ -60,7 +60,6 @@ class _ProductDetailState extends State<ProductDetail> {
               height: 20,
             ),
             Container(
-              height: 300,
               padding: EdgeInsets.symmetric(
                   horizontal: 15, vertical: 10), // Padding inside the container
               decoration: BoxDecoration(
@@ -102,6 +101,18 @@ class _ProductDetailState extends State<ProductDetail> {
                         .textTheme
                         .titleLarge!
                         .copyWith(color: Colors.black, fontSize: 15),
+                  ),
+                  SizedBox(height: 10,),
+                  TextButton(
+                    onPressed: (){}
+                    ,
+                    child: Text(
+                      "Details",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.grey, fontSize: 12),
+                    ),
                   ),
                 ],
               ),
