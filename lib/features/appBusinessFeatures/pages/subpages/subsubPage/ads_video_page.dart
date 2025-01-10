@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -50,22 +51,40 @@ class _FullScreenAdVideoState extends State<FullScreenAdVideo> {
 
   void _showCompletionDialog() {
     showDialog(
-
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
         title: Text('Your Data is Ready'),
-        titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
-        content: Text('Thank you for choosing Us! Click start to continue.',style:Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black) ,),
+        titleTextStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
+        content: Text(
+          'Thank you for choosing Us! Click start to continue.',
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: Colors.black),
+        ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScreenFactory.getPlatformScreen(Theme.of(context).platform).build(context),));
-               // Close dialog
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    ScreenFactory.getPlatformScreen(Theme.of(context).platform)
+                        .build(context),
+              ));
+              // Close dialog
               // Navigate to the next screen or perform action
             },
-            child: Text('Start',style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.black),),
+            child: Text(
+              'Start',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Colors.black),
+            ),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/customer_segementaiton_detail.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/trending_page.dart';
 import 'package:innovation_proeject/features/appBusinessFeatures/widgets/stock_chart.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../authentication/pages/mainScreen/Bloc/cubit.dart';
@@ -107,23 +108,28 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           CarouselSlider.builder(
             itemCount: imageAds.length,
             itemBuilder: (context, index, realIndex) {
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        imageAds[index],
+              return GestureDetector(
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>AppDetailScreen( path: imageAds[index],),));
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          imageAds[index],
+                        ),
+                        fit: BoxFit.fill),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black87,
+                        offset: Offset(0, 1),
+                        blurRadius: 10,
                       ),
-                      fit: BoxFit.fill),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black87,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(20),
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               );
             },
@@ -158,29 +164,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             child: FutureSaleForecastingOverview(),
           ),
           Center(
-            child: SizedBox(
-              width: 130,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const CustomerSegmentaitonDetail(),
-                    ),
-                  );
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Text("Look Detail",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontSize: 15,
-                          )),
-                ),
-              ),
+            child: TextButton(
+              onPressed: (){
+
+              },
+              child: Text("Look Detail",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.white,
+                        fontSize: 15,
+                      )),
             ),
           ),
           SizedBox(

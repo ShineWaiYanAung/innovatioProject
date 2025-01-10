@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/pages/subpages/subsubPage/customer_support.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -94,7 +95,9 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 'Support',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  CustomerSupportPage(),));
+              },
             ),
           ),
 

@@ -22,7 +22,6 @@ class _LoginViewState extends State<LoginView> {
   final List<String> _businessTypes = [
     'Convenience Store',
     'Clothing or Fashion Shop',
-    'Food & Beverage',
     'Cafeteria',
     'Restaurant',
   ];

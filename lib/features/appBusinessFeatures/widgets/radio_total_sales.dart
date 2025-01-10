@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innovation_proeject/features/appBusinessFeatures/widgets/pdft.viewer.dart';
 
 import '../Functions/Cubit/cubit_data_state_mangaement.dart';
 import '../Functions/TotalSalesChoiceFunction/Factory/total_sale_factory.dart';
@@ -28,20 +29,31 @@ class _RadioTotalSalesState extends State<RadioTotalSales> {
             "Profits",
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          buildRadio(0, options, "Annual", context,"60"),
-          buildRadio(1, options, "Monthly", context,"10"),
-          buildRadio(2, options, "Daily", context,"30"),
+          buildRadio(0, options, "Annual", context, "60"),
+          buildRadio(1, options, "Monthly", context, "10"),
+          buildRadio(2, options, "Daily", context, "30"),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => PDFViewerScreen(
+                      title: "Total Sale Report",
+                      filePath: "asset/fabReport/customer_review.pdf"),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.info,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Row buildRadio(
-    int optionsValue,
-    List<String> options,
-    String currentOptionsName,
-    BuildContext context,String profit
-  ) {
+  Row buildRadio(int optionsValue, List<String> options,
+      String currentOptionsName, BuildContext context, String profit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

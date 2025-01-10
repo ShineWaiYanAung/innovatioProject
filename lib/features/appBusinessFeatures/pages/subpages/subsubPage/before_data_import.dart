@@ -204,7 +204,7 @@ class _DataImportPageState extends State<DataImportPage> {
                                                   ),
                                             TextButton(
                                               onPressed: () {
-                                                Navigator.of(context).pop();
+
                                               },
                                               child: Text(
                                                 "Close",
